@@ -1,0 +1,32 @@
+<!--Autori: xmarek69, xgajdo24, xbilyd01 -->
+<main id="nastaveni">
+<div class="body-wrapper">
+
+    <h1>Nastavení, zvolte si potøebné atributy</h1>
+    <hr>
+    <? if($zmeny_ulozeny == 1){ ?>
+    <h2 style='color:green; background-color: #D1E8E2;'>Zmìny byly ulo¾eny</h2><? } ?>
+    <form method="post">
+        <table id="properties_table">
+            <tr>
+                <td>Název</td>
+                <td>Dodavatel</td>
+                <td>Nákupní cena</td>
+                <td>Prodejní cena</td>
+                <td>Mìrná jednotka</td>
+                <td>Mno¾ství</td>
+            </tr> 
+            <tr>
+                <td><input type="checkbox" name="nazev" value="checked" <?= $checked['nazev'] ?>></td>
+                <td><input type="checkbox" name="dodavatel" value="checked" <?= $checked['dodavatel'] ?>></td>
+                <td><input type="checkbox" name="cena_nakupni" value="checked" <?= $checked['cena_nakupni'] ?>></td>
+                <td><input type="checkbox" name="cena_prodejni" value="checked" <?= $checked['cena_prodejni'] ?>></td>
+                <td><input type="checkbox" name="mj" value="checked" <?= $checked['mj'] ?>></td>
+                <td><input type="checkbox" name="mnozstvi" value="checked" <?= $checked['mnozstvi'] ?>></td>
+            </tr>  
+        </table>
+        
+        <input type="submit" name="save" value="Ulo¾it" class="btn btn-secondary">
+    </form>
+</div>
+</main>

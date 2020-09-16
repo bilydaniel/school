@@ -1,0 +1,68 @@
+<!--Autori: xmarek69, xgajdo24, xbilyd01 -->
+<main id="sklad">
+<div class="body-wrapper">
+	<h1>Historie</h1>
+	<hr>
+	<div class="table-wrapper">
+	<table class="table" id="tabulka_zbozi">
+		<thead>
+		<tr>
+	        <th>Datum</th>
+	        <th>Typ</th>
+	    	<? if($nastaveni['nazev']){ ?>
+	        <th><?= "Název";} ?></th>
+	    	<? if($nastaveni['dodavatel']){ ?>
+	        <th><?= "Dodavatel";} ?></th>
+	    	<? if($nastaveni['cena_nakupni']){ ?>
+	        <th><?= "Nákupní cena";} ?></th>
+	    	<? if($nastaveni['cena_prodejni']){ ?>
+	        <th><?= "Prodejní cena";} ?></th>
+	    	<? if($nastaveni['mj']){ ?>
+	        <th><?= "MJ";} ?></th>
+	    	<? if($nastaveni['mnozstvi']){ ?>
+	        <th><?= "Mno¾ství";} ?></th>
+	        <th>Poznámka k dodávce</th>
+		</tr>			
+		</thead>
+		<tbody>
+			<?php foreach (array_reverse($dodavky) as $dodavka) : ?>
+	    	<? for($i = 0; $i < count($dodavka)-3; $i++){ ?>
+	    	<? $trida = $i == count($dodavka)-4? "class=\"spodni_ramecek\"" : "" ?>
+	    <tr <?= $trida ?>>
+	    	<? if($i == 0){ ?>
+	        <td rowspan="<?= count($dodavka)-3 ?>" class="spodni_ramecek">
+	            <?= $dodavka['datum'] ?>
+	        </td>
+	        <td rowspan="<?= count($dodavka)-3 ?>" class="pravy_ramecek spodni_ramecek">	            
+	            <?= $dodavka['smer'] ?>
+	        </td>
+	        <? } ?>
+
+			<? if($nastaveni['nazev']){ ?>
+			<td><?= $dodavka[$i]['nazev'];} ?></td>
+			<? if($nastaveni['dodavatel']){ ?>
+			<td><?= $dodavka[$i]['dodavatel'];} ?></td>
+			<? if($nastaveni['cena_nakupni'] == 1){ ?>
+			<td><?= $dodavka[$i]['cena_nakupni'];} ?></td>
+			<? if($nastaveni['cena_prodejni']){ ?>
+			<td><?= $dodavka[$i]['cena_prodejni'];} ?></td>
+			<? if($nastaveni['mj']){ ?>
+			<td><?= $dodavka[$i]['mj'];} ?></td>
+			<? if($nastaveni['mnozstvi']){ ?>
+			<td><?= $dodavka[$i]['mnozstvi'];} ?></td>
+
+	    	<? if($i == 0){ ?>
+
+	        <td rowspan="<?= count($dodavka)-3 ?>" class="levy_ramecek spodni_ramecek">          
+	            <?= $dodavka['poznamka'] ?>
+	        </td>
+
+	        <? } ?>
+	    </tr>
+
+        <? } ?>
+	<?php endforeach ?>
+		</tbody>
+	</table>
+</div>
+</main>

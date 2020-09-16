@@ -1,0 +1,20 @@
+<!--Autori: xmarek69, xgajdo24, xbilyd01 -->
+<main id="sklad">
+	<? if($spatne_heslo == 1){ ?>
+    <h2 class='error_for_user'>©patné pøihla¹ovací údaje!</h2>
+    <? } ?>
+    <div class='title'><h1>Pohádkový sklad</h1><p> S námi se skladuje jako v pohádce</p></div>
+	<div id="login">
+	    <form method="post">
+	        <h2>Pøihlá¹ení</h2>
+	        <p class="hint">U¾ivatelské jméno:</p>
+	        <input type="text" name="username" placeholder="login"/ autofocus>
+	        <p class="hint">Heslo:</p>
+	        <input type="password" name="password" placeholder="heslo"/>
+	        <input type="submit" name="login" value="Pøihlásit" class="btn btn-secondary">
+	    </form>
+	</div>
+	<div id="no_account" class="btn btn-secondary"><a href="?akce=registrace" >Zaregistrovat</a></div>
+	
+	
+</main>

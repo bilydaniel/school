@@ -1,0 +1,376 @@
+/*Autor: xbilyd01*/
+body{
+    background-image: url('./assets/storage2.jpg'); 
+    background-position: center center;
+    background-color: #15161a;
+    background-repeat: no-repeat;
+    background-size:  cover;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    min-width: 1000px;
+}
+
+#login {
+    width: 300px;
+    height: fit-content;
+    border: 2px solid #FFCB9A;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #116466;
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#login .hint{    
+    margin: 5px 0;
+    font-size: 1.1em;
+    text-align: left;    
+}
+
+div.title{
+    width: 650px;
+    height: fit-content;
+    border: 2px solid #FFCB9A;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #116466;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+#login input[type="submit"]{
+    width: 55%;
+    height: fit-content;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #D9B08C;
+    font-size: 1em;
+}
+
+#no_account {    
+    width: 300px;
+    height: fit-content;
+    border: 2px solid #FFCB9A;
+    margin: 0 auto;
+    padding: 5px;
+    background-color: #116466;
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#no_account a {
+    color: #D9B08C;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+#user_bar {
+    width: 150px;
+    height: 52px;
+    border-radius: 0 0 0 15px;
+   
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: 2px solid #FFCB9A;
+    background-color: #116466;
+}
+
+#user_bar img {
+    max-width: 64px;
+    padding: 10px 0;
+    padding-left: 30px;
+}
+
+nav {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    margin-left: 10%;
+}
+nav a {
+    background-color: #FFCB9A;
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 30px;
+    font-size: 1.2em;
+}
+
+
+nav #active:not(:hover) {
+    background-color: white;
+    color: #116466;
+}
+/*
+nav a:hover{
+    border: 1px solid;
+}
+*/
+main h1{
+    text-align: center;
+    font-size: 3em;
+    color: #D1E8E2;
+    font-weight: normal;
+    /*background-color: #116466;*/
+}
+
+main h2{
+    text-align: center;
+}
+
+main p{
+    font-size: 1em;
+    text-align: center;
+}
+
+.message_for_user {
+    color: #ffcb9a;
+    text-align: center;
+}
+
+.error_for_user {
+    margin: 1rem;
+    color: red;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 1.5em;
+    overflow: hidden;
+    margin: 10px auto;
+}
+
+table td {
+    padding: 10px;
+    text-align: center;
+}
+
+table tr:nth-child(even) {    
+    background-color: rgb(240, 240, 240);
+}
+
+table tr:nth-child(odd) {    
+    background-color: rgb(225, 225, 225);
+}
+
+table tr:nth-child(odd) input[type="text"]::placeholder {    
+    color: rgb(136, 136, 136);
+}
+
+table tr:nth-child(even) input[type="text"]::placeholder {    
+    color: rgb(168, 168, 168);
+}
+
+table th {
+    padding: 10px;
+    background-color: #014F92;
+    color: white;
+    text-align: center;
+}
+
+form input[type="submit"],form button{
+    height: fit-content;
+    margin-top: 10px;
+    background-color: #D9B08C;
+
+    display: block;
+    margin: 0 auto;
+    padding: 5px 20px;
+}
+form input[type="submit"]:hover{
+    height: fit-content;
+    margin-top: 10px;
+    background-color: #D9B08C;
+
+    display: block;
+    margin: 0 auto;
+    padding: 5px 20px;
+}
+
+form input[type="submit"]:disabled,form button:disabled{
+    background-color: rgb(235, 235, 228);
+    color: rgb(84, 84, 84);
+    border: 1px solid darkgray;
+}
+
+.btn{
+
+}
+
+.btn-secondary{
+    background-color: #116466;
+    border: 2px solid #FFCB9A;
+}
+
+.btn-primary{
+    background-color: #d9b08c;
+    border: 2px solid #FFCB9A;
+}
+
+.btn-primary:hover{
+    border-color: #545b62;
+    background-color: #d9b08c;
+}
+
+.btn-primary:active{
+    border-color: #545b62 !important;
+    background-color: #d9b08c !important;
+}
+
+.btn-primary:focus{
+    border-color: #545b62 !important;
+    background-color: #d9b08c !important;
+}
+
+.btn-secondary:hover{
+    background-color: #116466;
+}
+
+
+.header-wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.header-wrapper nav{
+    margin: 0;
+    display: flex;
+    background: #116466;
+    width: 28rem;
+    padding: 0.3rem 1rem 0.3rem 1rem;
+    border-bottom-right-radius: 10px;
+    border: 2px solid #FFCB9A;
+    background-color: #116466;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: space-between;
+}
+
+hr{
+ width: 80%;
+ border-top: 1px solid rgba(0, 0, 0, 0.63);
+}
+
+/*autor: xbilyd01*/
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body-wrapper{
+    padding: 2rem 0;
+    background: #116466f5;
+    width: 80%;
+    border-radius: 10px;
+    border: 2px solid #FFCB9A;
+}
+
+#blok_vyhledavani{
+    display: flex;
+}
+
+#blok_vyhledavani input{
+    margin-right: 1rem;
+}
+
+#blok_rozsirenych_poli input{
+    height: auto;
+}
+
+table{
+    border-radius: 10px;
+    width: 100%;
+}
+
+table th {
+    background-color: #ffcb9a;
+    color: black;
+}
+
+table input{
+    width: 100%;
+}
+
+#add_button {
+    background-color: #d9b08c !important;
+}
+
+.body-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body-wrapper form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#poznamka_s_datumy {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffcb9a;
+    margin-bottom: 0.5rem;
+}
+
+.datum{
+    display: flex;
+    align-items: flex-start;
+    padding: 0.5rem 0 ;
+}
+
+#datum{
+    display: flex;
+    align-items: flex-start;
+    padding: 0.5rem 0 ;
+}
+
+#datum p {
+    margin: 0 0.5rem;
+}
+
+.table-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    overflow-y: auto;
+    height: 27rem;
+}
+
+
+.table{
+    overflow: overlay;
+    width: 99.7%;
+    text-align: center;
+    margin:0;
+}
+
+.table thead th{
+    position: sticky;
+    top: -1px;
+    background: #ffcb9a;
+}
+
+.table td{
+    vertical-align: middle;
+}

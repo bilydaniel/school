@@ -1,0 +1,43 @@
+/*Autor: xbilyd01*/
+#blok_rozsirenych_poli {
+	display: none;
+}
+
+#blok_rozsirenych_poli input{
+    margin: 2px 5px;
+    height: 40px;
+    font-size: 20px;
+}
+
+#vyhledavac_vseho {
+	display: block;
+    height: 40px;
+    font-size: 20px;
+}
+
+#editace_skladu {
+	display: flex;
+	justify-content: center;
+}
+
+#tlacitko_zrusit_upravu_zbozi, #tlacitko_ulozit_upravu_zbozi{
+	display: none;
+}
+
+#tlacitko_zrusit_upravu_zbozi, #tlacitko_uprav_zbozi, #tlacitko_ulozit_upravu_zbozi{    
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 5px;
+    height: 50px;
+    width: 50px;
+}
+
+#vyhledavani_ve_zbozi {
+	display: flex;
+	justify-content: center;
+}
+
+#blok_zmena_vyhledavani{
+	display: flex;
+	justify-content: center;
+}

@@ -1,0 +1,40 @@
+<!--Autori: xmarek69, xgajdo24, xbilyd01 -->
+<header>
+<div class="header-wrapper">
+
+	<?php
+
+	    $sklad="";
+	    $prijem="";
+	    $vydej="";
+	    $historie="";
+	    $sprava="";
+	    if(isset($_GET) && isset($_GET['akce'])){
+	        if($_GET['akce'] == "sklad")
+	            $sklad = "active";
+	        if($_GET['akce'] == "prijem")
+	            $prijem = "active";
+	        if($_GET['akce'] == "vydej")
+	            $vydej = "active";
+	        if($_GET['akce'] == "historie")
+	            $historie = "active";
+	    }else{
+	        $sklad = "active";
+	    }
+	?>
+	<nav>
+		<div>
+	    	<a href="?akce=sklad" id="<?php echo $sklad;?>" class="btn btn-secondary">Sklad</a></div>
+	    <div>
+	    	<a href="?akce=prijem" id="<?php echo $prijem;?>"class="btn btn-secondary">Pøíjem zbo¾í</a></div>
+	    <div>
+	    	<a href="?akce=vydej" id="<?php echo $vydej;?>"class="btn btn-secondary">Výdej zbo¾í</a></div>
+	    <div>
+	    	<a href="?akce=historie" id="<?php echo $historie;?>"class="btn btn-secondary">Historie</a></div>
+	</nav>
+	<div id="user_bar">
+	    <a href="index.php?akce=nastaveni"><img src="img/settings.png"></a>    
+	    <a href="php/include/logout.php"><img src="img/logout.png"></a>
+	</div>
+</div>
+</header>

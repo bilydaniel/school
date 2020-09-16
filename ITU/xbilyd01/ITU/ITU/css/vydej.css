@@ -1,0 +1,17 @@
+/*Autor: xbilyd01*/
+#vydej #goods_table input[type="text"] {
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 0;
+    text-align: center;
+}
+
+#vydej #goods_table #add_button {
+    font-size: 1.5em;
+    background-color: #014F92;
+    border: 0;
+    border-radius: 1em;
+    color: white;
+    padding: 0px 50px;
+    margin-top: 5px;
+}

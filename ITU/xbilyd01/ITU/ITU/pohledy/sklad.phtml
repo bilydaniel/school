@@ -1,0 +1,308 @@
+<!--Autori: xmarek69, xgajdo24, xbilyd01 -->
+<main id="sklad">
+<div class="body-wrapper">
+	<h1>Sklad</h1>
+	<hr>
+    <? if($zmeny_ulozeny == 1){ ?>
+	<h2 class='message_for_user'>Zmìny byly ulo¾eny</h2><? } ?>
+	<div id="vyhledavac">
+		<form id="vyhledavani_ve_zbozi" method="POST">
+			<div id="blok_vyhledavani">
+				<input name="vyhledavac_vseho" id="vyhledavac_vseho" type="text" placeholder="Hledaný výraz..." list="vyrazy_vsechny"  onkeyup="hledej()" 
+					onselect="hledej()" <? if(isset($_POST['vyhledavac_vseho'])){ echo "value=\"" . $_POST['vyhledavac_vseho'] . "\"";} ?>>
+				<!-- <button type="submit"><i class="fa fa-search" onclick="hledej()"></i></button><br> -->
+				<div id="blok_rozsirenych_poli">
+					<input name="vyhledavac_nazvu" id="vyhledavac_nazvu" type="text" placeholder="Název zbo¾í..." list="vyrazy_nazvy"  onkeyup="hledej()" 
+					onselect="hledej()"<? if(isset($_POST['vyhledavac_nazvu'])){ echo "value=\"" . $_POST['vyhledavac_nazvu'] . "\"";} ?>><br>
+					<input name="vyhledavac_dodavatelu" id="vyhledavac_dodavatelu" type="text" placeholder="Dodavatel..." list="vyrazy_dodavatele"  onkeyup="hledej()" 
+					onselect="hledej()"<? if(isset($_POST['vyhledavac_dodavatelu'])){ echo "value=\"" . $_POST['vyhledavac_dodavatelu'] . "\"";} ?>><br>
+					<input name="vyhledavac_mj" id="vyhledavac_mj" type="text" placeholder="Mìrná jednotka..." list="vyrazy_mj"  onkeyup="hledej()" 
+					onselect="hledej()"<? if(isset($_POST['vyhledavac_mj'])){ echo "value=\"" . $_POST['vyhledavac_mj'] . "\"";} ?>>
+				</div>
+				<div id="blok_zmena_vyhledavani">
+					<button class="btn btn-primary" type="button" id="zmena_vyhledavani" value="zakladni" onclick="zmenVyhledavani()">Roz¹íøené vyhledávání</button>
+				</div>
+			</div>
+		</form>
+	  </div>
+	  
+	<form class="table-wrapper" id="tabulka_upraveneho_zbozi" method="POST">
+		<table id="tabulka_zbozi" class="table">
+		<thead>	
+			<? if(!isset($_POST['vyhledavac_vseho'])) { ?>
+			<script type="text/javascript">		
+				$(function(){
+					initElements();
+				});
+			</script>
+			<tr>
+				<? if($nastaveni['nazev']){ ?>
+				<th><?= "Název";} ?></th>
+				<? if($nastaveni['dodavatel']){ ?>
+				<th><?= "Dodavatel";} ?></th>
+				<? if($nastaveni['cena_nakupni'] == 1){ ?>
+				<th><?= "Nákupní cena";} ?></th>
+				<? if($nastaveni['cena_prodejni']){ ?>
+				<th><?= "Prodejní cena";} ?></th>
+				<? if($nastaveni['mj']){ ?>
+				<th><?= "MJ";} ?></th>
+				<? if($nastaveni['mnozstvi']){ ?>
+				<th><?= "Mno¾ství";} ?></th>
+			</tr>
+		</thead>
+		<tbody>
+		<? $index = 0; ?>
+		<?php foreach ($zbozi as $jedno_zbozi) : ?>
+			<tr>
+				<div id="id_zobrazeneho_zbozi" hidden>
+					<input type="text" name="id_zbozi_<?= $index++; ?>" value="<?= $jedno_zbozi['id_zbozi']; ?>">
+				</div>
+				<? if($nastaveni['nazev']){ ?>
+				<td><?= $jedno_zbozi['nazev'];} ?></td>
+				<? if($nastaveni['dodavatel']){ ?>
+				<td><?= $jedno_zbozi['dodavatel'];} ?></td>
+				<? if($nastaveni['cena_nakupni'] == 1){ ?>
+				<td><?= $jedno_zbozi['cena_nakupni'];} ?></td>
+				<? if($nastaveni['cena_prodejni']){ ?>
+				<td><?= $jedno_zbozi['cena_prodejni'];} ?></td>
+				<? if($nastaveni['mj']){ ?>
+				<td><?= $jedno_zbozi['mj'];} ?></td>
+				<? if($nastaveni['mnozstvi']){ ?>
+				<td><?= $jedno_zbozi['mnozstvi'];} ?></td>
+			</tr>
+		<?php endforeach ?>	
+		<? }else{ ?>
+			<script type="text/javascript">		
+				$(function(){
+					initElements();
+					hledej();
+				});
+			</script>
+		<? } ?>
+		</tbody>	
+		</table>
+			
+	</form>
+	<div  id="editace_skladu">
+		<input class="btn btn-secondary" type='image' src="img/save.png" name="save" id="tlacitko_ulozit_upravu_zbozi" value="Ulo¾it" form="tabulka_upraveneho_zbozi">
+		<input class="btn btn-secondary" type='image' src="img/cancel.png" id="tlacitko_zrusit_upravu_zbozi" value="Zru¹it" form="vyhledavani_ve_zbozi">
+		<input class="btn btn-secondary" type='image' src="img/edit.png" id="tlacitko_uprav_zbozi" onclick="nastav_pole_editovatelna();return false;" value="Upravit zbo¾í">
+	</div>
+</div>
+</main>
+
+<!-- Následují datalisty pro vyhledávání -->
+
+	<datalist id="vyrazy_vsechny">	
+		<?php foreach ($slova as $slovo) : ?>
+	  	<option value="<?= $slovo ?>">
+		<?php endforeach ?>
+	</datalist> 
+
+	<datalist id="vyrazy_nazvy">	
+		<?php foreach ($nazvy as $slovo) : ?>
+	  	<option value="<?= $slovo ?>">
+		<?php endforeach ?>
+	</datalist> 
+
+	<datalist id="vyrazy_dodavatele">	
+		<?php foreach ($dodavatele as $slovo) : ?>
+	  	<option value="<?= $slovo ?>">
+		<?php endforeach ?>
+	</datalist> 
+
+	<datalist id="vyrazy_mj">	
+		<?php foreach ($mj as $slovo) : ?>
+	  	<option value="<?= $slovo ?>">
+		<?php endforeach ?>
+	</datalist> 
+
+
+<script type="text/javascript">
+
+var pole_vyhledavac_nazvu;
+var pole_vyhledavac_dodavatelu;
+var pole_vyhledavac_mj;
+var blok_vyhledavac;
+var blok_rozsirenych_poli;
+var tlacitko_zmena_vyhledavani;
+var vyhledavac_vseho;
+
+$(function(){
+	initElements();
+});
+
+$("#tlacitko_zrusit_upravu_zbozi").click(function() {
+	$("#vyhledavac_vseho").prop("disabled", false);
+	$("#vyhledavac_nazvu").prop("disabled", false);
+	$("#vyhledavac_dodavatelu").prop("disabled", false);
+	$("#vyhledavac_mj").prop("disabled", false);
+	$("#vyhledavani_ve_zbozi").submit();
+});
+
+function nastav_pole_editovatelna(){
+	var index_vlastnosti = 0;
+	for(var i = 0; i < $("td").length; i++){
+		val = $("td").eq(i).text()
+		index_vlastnosti = (i % ($("td").length/($("tr").length-1)));
+		console.log($("th").eq(index_vlastnosti).text() == "Mno¾ství");
+		if($("th").eq(index_vlastnosti).text() != "Mno¾ství"){
+			$("td").eq(i).html("<input type=\"text\" name=\"zbozi_" + Math.floor(i/($("td").length/($("tr").length-1))) + "_" + strToStrIndex($("th").eq(index_vlastnosti).text()) + "_" + index_vlastnosti + "\" value=\"" + val + "\">");
+		}
+		
+	}
+	
+	$("td:first").focus();
+		
+	$("#tlacitko_uprav_zbozi").hide();
+	$("#tlacitko_ulozit_upravu_zbozi").show();
+	$("#tlacitko_zrusit_upravu_zbozi").show();
+	
+	$("#zmena_vyhledavani").prop("disabled", true);
+	$("#vyhledavac_vseho").prop("disabled", true);
+	$("#vyhledavac_nazvu").prop("disabled", true);
+	$("#vyhledavac_dodavatelu").prop("disabled", true);
+	$("#vyhledavac_mj").prop("disabled", true);
+}
+
+//napø Prodejní cena pøelo¾í na cena_prodejni
+function strToStrIndex(str){
+	switch (str) {
+		case "Název":
+			return "nazev";
+			break;
+		case "Dodavatel":
+			return "dodavatel";
+			break;
+		case "Nákupní cena":
+			return "cena_nakupni";
+			break;
+		case "Prodejní cena":
+			return "cena_prodejni";
+			break;
+		case "Mìrná jednotka":
+			return "mj";
+			break;
+		case "MJ":
+			return "mj";
+			break;
+		case "mj":
+			return "mj";
+			break;
+		case "Mno¾ství":
+			return "mnozstvi";
+			break;
+	
+		default:
+			return "unknown";
+	}
+
+}
+function initElements(){
+	blok_vyhledavac = document.getElementById("vyhledavac");
+	tlacitko_zmena_vyhledavani = document.getElementById("zmena_vyhledavani");
+	blok_rozsirenych_poli = document.getElementById('blok_rozsirenych_poli');
+	vyhledavac_vseho = document.getElementById('vyhledavac_vseho');
+
+}
+
+function hledej(){
+	if(tlacitko_zmena_vyhledavani.value == "zakladni"){
+		$.post("skripty/vyhledavani_zbozi.php",
+		  { id: '<?php echo "$id"; ?>',
+		  fraze: document.getElementById("vyhledavac_vseho").value },
+		  function(data, status){
+			upravTabulkuZbozi(data);
+		});
+	}else{		
+		$.post("skripty/vyhledavani_zbozi.php",
+		  { id: '<?php echo "$id"; ?>',
+		  nazev: document.getElementById("vyhledavac_nazvu").value,
+		  dodavatel: document.getElementById("vyhledavac_dodavatelu").value,
+		  mj: document.getElementById("vyhledavac_mj").value },
+		  function(data, status){
+		    upravTabulkuZbozi(data);
+		});
+	}
+}
+
+
+function upravTabulkuZbozi(json_odpoved){	
+	console.log(json_odpoved);
+	$("#id_zobrazeneho_zbozi input").prop("disabled",true);
+    var tabulka = document.getElementById("tabulka_zbozi");
+    tabulka.innerHTML = "";
+    tabulka.innerHTML = "<tr>"
+	    	<?php if($nastaveni['nazev']){ 
+	        echo "+\"<th>Název</th>\"";} ?>
+	    	<?php if($nastaveni['dodavatel']){ 
+	        echo "+\"<th>Dodavatel</th>\"";} ?>
+	    	<?php if($nastaveni['cena_nakupni']){ 
+	        echo "+\"<th>Nákupní cena</th>\"";} ?>
+	    	<?php if($nastaveni['cena_prodejni']){ 
+	        echo "+\"<th>Prodejní cena</th>\"";} ?>
+	    	<?php if($nastaveni['mj']){ 
+	        echo "+\"<th>MJ</th>\"";} ?>
+	    	<?php if($nastaveni['mnozstvi']){ 
+	        echo "+\"<th>Mno¾ství</th>\"";} ?>
+		+"</tr>";
+
+    var odpoved = JSON.parse(json_odpoved);
+    //var pocet = odpoved.pocet;
+	var row, cell, index, radek;
+
+	if(Object.keys(odpoved).length == 0){
+    	row = tabulka.insertRow(1);
+        row.innerHTML = "<td colspan=\"<?= count($nastaveni)?>\">Pro hledané parametry nenalezeny ¾ádné záznamy!</td>";
+	}
+
+    for(var i = 0; i < Object.keys(odpoved).length; i++){
+    	row = tabulka.insertRow(i+1);
+    	index = 0;
+    	radek = odpoved[i]; 
+
+		
+		row.innerHTML =
+			"<div id=\"id_zobrazeneho_zbozi\" hidden>"
+				+"<input type=\"text\" name=\"id_zbozi_" + i + "\" value=\"" + radek['id_zbozi'] + "\">"
+			+"</div>"
+		<? if($nastaveni['nazev']){ ?>
+		cell = row.insertCell(index++);
+		cell.innerHTML = radek['nazev']; <? } ?>
+		<? if($nastaveni['dodavatel']){ ?>
+		cell = row.insertCell(index++);
+		cell.innerHTML = radek['dodavatel']; <? } ?>
+		<? if($nastaveni['cena_nakupni'] == 1){ ?>
+		cell = row.insertCell(index++);
+		cell.innerHTML = radek['cena_nakupni']; <? } ?>
+		<? if($nastaveni['cena_prodejni']){ ?>
+		cell = row.insertCell(index++);
+		cell.innerHTML = radek['cena_prodejni']; <? } ?>
+		<? if($nastaveni['mj']){ ?>
+		cell = row.insertCell(index++);
+		cell.innerHTML = radek['mj']; <? } ?>
+		<? if($nastaveni['mnozstvi']){ ?>
+		cell = row.insertCell(index++);
+		cell.innerHTML = radek['mnozstvi']; <? } ?>
+
+    }
+
+}
+
+function zmenVyhledavani(){
+	var tlacitko = document.getElementById("zmena_vyhledavani");
+	if(tlacitko.value == "zakladni"){
+		tlacitko.value = "rozsirene";
+		tlacitko.innerHTML = "Základní vyhledávání";
+		vyhledavac_vseho.style.display = "none";
+		blok_rozsirenych_poli.style.display = 'flex';
+	}else{
+		tlacitko.value = "zakladni";
+		tlacitko.innerHTML = "Roz¹íøené vyhledávání";
+		vyhledavac_vseho.style.display = "block";
+		blok_rozsirenych_poli.style.display = 'none';
+	}
+	//Aktualizace vysledku
+	hledej();
+}
+</script>

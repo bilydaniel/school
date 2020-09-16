@@ -1,0 +1,177 @@
+<!--Autori: xmarek69, xgajdo24, xbilyd01 -->
+<main id="prijem">
+<div class="body-wrapper">
+    <h1>Pøíjem zbo¾í</h1>
+    <hr>
+    <? if($zmeny_ulozeny == 1){ ?>
+	<h2 class='message_for_user'>Zbo¾í bylo pøidáno do skladu</h2><? } ?>
+    <form class="table-wrapper" method="post">
+        <table id="goods_table">
+            <thead>
+                <tr>
+                    
+			    	<? if($nastaveni['nazev']){ ?>
+			        <th>Název</th><? } ?>
+			    	<? if($nastaveni['dodavatel']){ ?>
+			        <th>Dodavatel</th><? } ?>
+			    	<? if($nastaveni['cena_nakupni']){ ?>
+			        <th>Nákupní cena</th><? } ?>
+			    	<? if($nastaveni['cena_prodejni']){ ?>
+			        <th>Prodejní cena</th><? } ?>
+			    	<? if($nastaveni['mj']){ ?>
+			        <th>MJ</th><? } ?>
+			    	<? if($nastaveni['mnozstvi']){ ?>
+			        <th>Mno¾ství</th><? } ?>
+                </tr> 
+            </thead>
+            <tbody>
+                <tr>
+
+			    	<? if($nastaveni['nazev']){ ?>
+                    <td><input type="text" id="nazev0" name="nazev0" placeholder="Název zbo¾í" list="vyrazy_nazvy" autocomplete="off" onkeyup="doplnParametryRadku(0);" onselect="doplnParametryRadku(0);" /></td><? } ?>
+			    	<? if($nastaveni['dodavatel']){ ?>
+                    <td><input type="text" id="dodavatel0" name="dodavatel0" placeholder="Dodavatel" list="vyrazy_dodavatele" autocomplete="off"/></td><? } ?>
+			    	<? if($nastaveni['cena_nakupni']){ ?>
+                    <td><input type="text" id="cena_nakupni0" name="cena_nakupni0" placeholder="Nákupní cena" autocomplete="off"/></td><? } ?>
+                    <? if($nastaveni['cena_prodejni']){ ?>
+                    <td><input type="text" id="cena_prodejni0" name="cena_prodejni0" placeholder="Prodejní cena" autocomplete="off"/></td><? } ?>
+			    	<? if($nastaveni['mj']){ ?>
+                    <td><input type="text" id="mj0" name="mj0" placeholder="MJ" list="vyrazy_mj" autocomplete="off"/></td><? } ?>
+			    	<? if($nastaveni['mnozstvi']){ ?>
+                    <td><input type="text" id="mnozstvi0" name="mnozstvi0" placeholder="Mno¾ství" autocomplete="off"/></td><? } ?>
+                </tr>  
+                <tr>
+                    <td colspan="<?= count($nastaveni) ?>"><input id="add_button" type="button" value="+" onclick="add_row(1)"/></td>
+                </tr>  
+            </tbody>
+        </table>
+        <div id="poznamka_s_datumy">
+            <div class="datum" id="datum">
+               <p>Datum pøijetí: </p><input type="date" name="datum_pohybu" id="datum_pohybu">
+            </div>
+            <textarea rows="6" cols="70" placeholder="Zde mù¾ete napsat poznámku k dodávce" name="poznamka"></textarea>
+            
+        </div>
+        <input type="text" name="smer" value="0" hidden="true" />
+        <input class="btn btn-primary" type="submit" name="save" value="Ulo¾it">
+    </form>
+</div>
+</main>
+
+
+
+    <datalist id="vyrazy_nazvy">    
+        <?php foreach ($nazvy as $slovo) : ?>
+        <option value="<?= $slovo ?>">
+        <?php endforeach ?>
+    </datalist> 
+
+    <datalist id="vyrazy_dodavatele">	
+        <?php foreach ($dodavatele as $slovo) : ?>
+        <option value="<?= $slovo ?>">
+        <?php endforeach ?>
+    </datalist> 
+
+    <datalist id="vyrazy_mj">	
+        <?php foreach ($mj as $slovo) : ?>
+        <option value="<?= $slovo ?>">
+        <?php endforeach ?>
+    </datalist> 
+    
+<script>
+
+    function doplnParametryRadku(i){
+        var index = i;
+        var element_nazev = document.getElementById("nazev" + i); 
+        var element_dodavatel = null, element_cena_nakupni = null, element_cena_prodejni = null, 
+            element_mj = null, element_mnozstvi = null;
+
+        var pocet_prazdnych_poli = 0;
+        <? if($nastaveni['dodavatel']){ ?>
+            element_dodavatel = document.getElementById("dodavatel" + i);
+            if(element_dodavatel.value != "") {
+                pocet_prazdnych_poli++; }<? } ?>
+        <? if($nastaveni['cena_nakupni']){ ?>
+            element_cena_nakupni = document.getElementById("cena_nakupni" + i); 
+            if(element_cena_nakupni.value != "") {
+                pocet_prazdnych_poli++; }<? } ?>
+        <? if($nastaveni['cena_prodejni']){ ?>
+            element_cena_prodejni = document.getElementById("cena_prodejni" + i);
+            if(element_cena_prodejni.value != "") {
+                pocet_prazdnych_poli++; }<? } ?>
+        <? if($nastaveni['mj']){ ?>
+            element_mj = document.getElementById("mj" + i);
+            if(element_mj.value != "") {
+                pocet_prazdnych_poli++; }<? } ?>
+        <? if($nastaveni['mnozstvi']){ ?>
+            element_mnozstvi = document.getElementById("mnozstvi" + i);
+            if(element_mnozstvi.value != "") {
+                pocet_prazdnych_poli++; }<? } ?>
+            
+        if(element_nazev.value==""){
+                nastav_hodnotu_elementu(element_dodavatel, "");
+                nastav_hodnotu_elementu(element_cena_nakupni, "");
+                nastav_hodnotu_elementu(element_cena_prodejni, "");
+                nastav_hodnotu_elementu(element_mj, "");
+                nastav_hodnotu_elementu(element_mnozstvi, "");
+        }
+        <?php $id=$this->parametry['id']; ?>
+
+        $.post("skripty/doplnovani_parametru_zbozi.php",
+          { id: '<?php echo "$id"; ?>',
+          nazev: element_nazev.value },
+          function(data, status){
+            var radek = JSON.parse(data);
+            if(Object.keys(radek).length != 0 && pocet_prazdnych_poli == 0){
+                nastav_hodnotu_elementu(element_dodavatel, radek['dodavatel']);
+                nastav_hodnotu_elementu(element_cena_nakupni, radek['cena_nakupni']);
+                nastav_hodnotu_elementu(element_cena_prodejni, radek['cena_prodejni']);
+                nastav_hodnotu_elementu(element_mj, radek['mj']);
+                nastav_hodnotu_elementu(element_mnozstvi, radek['mnozstvi']);
+            }
+        });
+        
+    }
+
+    function nastav_hodnotu_elementu(element, hodnota){
+        if(element != null){
+            element.value = hodnota;
+        } 
+    }
+    var index = 0;
+    
+    window.onload = today_date_to_form;
+
+    function add_row(){
+        index++;
+        var table = document.getElementById("goods_table");
+        var row = table.insertRow(table.rows.length-1);    
+        var i = 0;
+        <? if($nastaveni['nazev']){ ?>
+        var cell1 = row.insertCell(i++);
+        cell1.innerHTML = '<input type="text" id="nazev'+index+'" name="nazev'+index+'" placeholder="Název zbo¾í" list="vyrazy_nazvy" autocomplete="off" onkeyup="doplnParametryRadku('+index+');" onselect="doplnParametryRadku('+index+');" />';<? } ?>
+        <? if($nastaveni['dodavatel']){ ?>
+        var cell2 = row.insertCell(i++);
+        cell2.innerHTML = '<input type="text" id="dodavatel'+index+'" name="dodavatel'+index+'" placeholder="Dodavatel" list="vyrazy_dodavatele" autocomplete="off"/>';<? } ?>
+        <? if($nastaveni['cena_nakupni']){ ?>
+        var cell3 = row.insertCell(i++);
+        cell3.innerHTML = '<input type="text" id="cena_nakupni'+index+'" name="cena_nakupni'+index+'" placeholder="Nákupní cena" autocomplete="off"/>';<? } ?>
+        <? if($nastaveni['cena_prodejni']){ ?>
+        var cell3 = row.insertCell(i++);
+        cell3.innerHTML = '<input type="text" id="cena_prodejni'+index+'" name="cena_prodejni'+index+'" placeholder="Prodejní cena" autocomplete="off"/>';<? } ?>
+        <? if($nastaveni['mj']){ ?>
+        var cell4 = row.insertCell(i++);
+        cell4.innerHTML = '<input type="text" id="mj'+index+'" name="mj'+index+'" placeholder="Mìrná jednotka" list="vyrazy_mj" autocomplete="off"/>';<? } ?>
+        <? if($nastaveni['mnozstvi']){ ?>
+        var cell5 = row.insertCell(i++);
+        cell5.innerHTML = '<input type="text" id="mnozstvi'+index+'" name="mnozstvi'+index+'" placeholder="Mno¾ství"/>';<? } ?>
+    }
+
+    function today_date_to_form(){
+        n =  new Date();
+        y = n.getFullYear();
+        m = n.getMonth() + 1;
+        d = ("0" + n.getDate()).slice(-2);
+        document.getElementById("datum_pohybu").value = y + "-" + m + "-" + d;
+    }
+</script>

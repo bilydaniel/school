@@ -1,0 +1,12 @@
+/*Autor: xbilyd01*/
+.spodni_ramecek {
+	border-bottom: 1px solid dimgray;
+}
+
+.pravy_ramecek {
+	border-right: 1px solid rgb(225, 225, 225);
+}
+
+.levy_ramecek {
+	border-left: 1px solid rgb(225, 225, 225);
+}

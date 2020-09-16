@@ -1,0 +1,60 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage{times}
+\usepackage[left=2cm,top=3cm,text={17cm, 24cm}]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage[linesnumbered, ruled, czech]{algorithm2e}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{graphics}
+\bibliographystyle{czplain}
+
+\begin{document}
+
+\begin{center}
+\thispagestyle{empty}
+\Huge{\textsc{Vysoké učení tehcnické v Brně}\\
+\Huge{Fakulta informačních technologií}}\\\vspace{\stretch{0.382}}
+\LARGE{Typografie a publikování – 4. projekt}\\ 
+\Huge{Citace} \\\vspace{\stretch{0.618}}
+\end{center}
+\LARGE{15. dubna 2019 \hfill Daniel Bílý}
+
+
+\normalsize
+\pagebreak
+\setcounter{page}{1}
+
+
+\section{Typografie}
+Jak je popsáno v \cite{Bringhurst}, typografie je umění které můžeme využít k uctění obsahu psaného textu, ale také ke zkrytí pravého významu. Důraz je kladen na dlohodobou funkčnost využitého typografického stylu, psaný text musí mít dobrý design i po několika desítkách let. Toho se obvykle dosáhne jednoduchostí. Aaron Burns dokonce tvrdí že je možné přemýšlet do budoucna a psát texty tak, aby se líbily lidem i po staletích \cite{Aaron}. \\
+
+Pro dobrý vzhled a čitelnost by jsme se měli držet konvencí, které nám pomáhají se rozhodnout jak daný text vysázet. Je důležité aby prezentace materiálu ihned dala najevo svou funkčnost v textu \cite{Mittel}. Způsob toho jak je text vysázen je úzce spojen s tím jak rychle člověk dokáže daný text číst i pochopit \cite{Journal}. \\
+
+O typografii jsme se mohli dozvědět více například v českém časopise Typografia \cite{typografia}, ten už bohužel dnes nevydává. Protože lidé dnes více čou vše online a ne v knihách či magazínech, nejdůležitější začíná být využití typografie na webových stránkách \cite{web}.
+
+
+\section{\LaTeX}
+Latex je komplexní systém pro sázení textu. Obsahuje funkcionality navržené pro produkci technického a vědeckého textu. \LaTeX je de facto standardem pro publikaci vědeckých dokumentací \cite{latex_project}. \\
+
+\LaTeX má samozřejmě velkou sadu příkazů, můžeme v něm využívat skripty, měnit jeho fonty nebo například balíčky vytvořené jinými lidmy \cite{fonty}.
+
+ 
+Při sporu jestli používat \LaTeX  či jednodušší editory se obvykle rozhodujeme podle velikosti psaného dokumentu \cite{latex_vut}:
+
+\begin{quotation}
+Slyšel jsem sice názor, že lidé chtějí dokumenty psát, místo aby je programovali, ale mně na tom nepřipadá nic špatného. Jde zde o střet dvou odlišných filosofií. Osobně zastávám názor, že WYSIWYG editory jsou vhodné pro nepříliš rozsáhlé, jednoduché texty, u nichž záleží na rychlosti tvorby více než na kvalitě provedení. Složitější dokumenty s množstvím matematických vzorců, automaticky číslovanými obrázky, definicemi a s odkazy na ně, případně knihy je výhodnější sázet v LaTeXu nebo v TeXu. 
+\end{quotation}
+
+
+\LaTeX je následníkem systému \TeX , který už sám o sobě je schopen vysázet text kvalitně, ale ne dostatečně pohodlně. \LaTeX  je vlastně preprocesor pro \TeX , to znamená že zdrojový program napsaný v \LaTeX u je překládán to \TeX u a poté zpracován \cite{latex_manual}.
+
+
+
+\pagebreak
+
+
+\bibliography{bib}
+
+\end{document}

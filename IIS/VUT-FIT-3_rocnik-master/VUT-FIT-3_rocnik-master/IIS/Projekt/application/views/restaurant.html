@@ -1,0 +1,211 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>Jídlo dáme</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<link href="/www.google-analytics.com" rel="dns-prefetch">
+	<link href="/ajax.googleapis.com" rel="dns-prefetch">
+	<link href="../assets/css/style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+</head>
+<body class="home">
+	<?php include("header.html"); ?>
+
+	<?php include("modalRestaurant.html"); ?>
+
+	<main class="main" >
+		<section id="restaurant-wrapper">
+			<div class="restaurant">
+				<div class="restaurant-header">
+					<div class="restaurant-img"><img src="<?php echo $restaurant['img']; ?>"></div>
+					<div class="restaurant-info">
+						<h2><?php echo $restaurant["nazev"]; ?></h2>
+						<p><?php echo $restaurant["popis"]; ?></p>
+					</div>
+					<div class="restaurant-contact">
+						<h3>Kontakt</h3>
+						<hr>
+						<ul>
+							<li><i class="fa fa-fw fa-map-marker"></i>&nbsp;<?php echo $restaurant["adresa"];?></li>
+							<li><i class="fa fa-fw fa-phone"></i>&nbsp;<?php echo $restaurant["telefon"];?></li>
+							<li><i class="fa fa-fw fa-clock-o"></i>&nbsp;<?php echo $restaurant["oteviraci_doba"];?></li>
+							<li><i class="fa fa-fw fa-clock-o"></i>&nbsp;<?php echo $restaurant["zaviraci_doba"];?></li>
+						</ul>
+						<?php if(in_array($this->session->userdata('role'),array('admin','operator'))){ ?>
+						<button data-toggle="modal" data-target="#editRestaurant">Upravit</button>
+						<?php }?>
+					</div>
+				</div>
+
+
+				<div class="restaurant-body">
+					<form id="spec-diet" action="<?php echo base_url();?>index.php/restaurant" method="post">
+						<div class="spec-diet">
+							<div class="form-check form-check-inline">  
+								
+								<?php 
+								if(in_array('dia',$searched)){
+									$checked = 'checked';
+								}else{
+									$checked = ''; 
+								}
+								$name='dia';
+								echo("<input type='checkbox' name=$name  class='form-check-input' id='inlineCheckbox1' $checked value='dia'>");
+								?>
+								<label>Pro diabetiky</label>
+								<span class="text-danger"><?php echo form_error('password'); ?></span>  
+							</div>
+							<div class="form-check form-check-inline">  
+								
+								<?php 
+								if(in_array('gluten_free',$searched)){
+									$checked = 'checked';
+								}else{
+									$checked = ''; 
+								}
+								$name='gluten_free';
+								echo("<input type='checkbox' name=$name  class='form-check-input' id='inlineCheckbox2' $checked value='gluten_free'>");
+								?>
+								<label>Bezlepkové</label>
+								<span class="text-danger"><?php echo form_error('password'); ?></span>  
+							</div>
+							<div class="form-check form-check-inline">  
+								
+								<?php 
+								if(in_array('vegetarian',$searched)){
+									$checked = 'checked';
+								}else{
+									$checked = ''; 
+								}
+								$name='vegetarian';
+								echo("<input type='checkbox' name=$name  class='form-check-input' id='inlineCheckbox3' $checked value='vegetarian'>");
+								?>
+								<label>Vegetariánské</label>
+								<span class="text-danger"><?php echo form_error('password'); ?></span>  
+							</div>
+							<div class="form-check form-check-inline">  
+								
+								<?php 
+								if(in_array('vegan',$searched)){
+									$checked = 'checked';
+								}else{
+									$checked = ''; 
+								}
+								$name='vegan';
+								echo("<input type='checkbox' name=$name  class='form-check-input' id='inlineCheckbox4' $checked value='vegan'>");
+								?>
+								<label>Veganské</label>
+								<span class="text-danger"><?php echo form_error('password'); ?></span>  
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="hidden" name="id" value="<?php echo $restaurant['id_provozovny']; ?>">
+								<button type="submit" name="filter" value="Filtrovat">Filtrovat</button>
+							</div>
+						</div>
+					</form>
+					<form action="<?php echo base_url();?>index.php/restaurant/order" method="post">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col"></th>
+									<th scope="col">Img</th>
+									<th scope="col">Jméno</th>
+									<th scope="col">Popis</th>
+									<th scope="col">Cena</th>
+									<th scope="col">Zbývá</th>
+									<th scope="col">Množství</th>
+									<?php if(in_array($this->session->userdata('role'),array('admin','operator'))){ ?>
+									<th scope="col">Upravit</th>
+									<th scope="col">Smazat</th>
+									<?php }?>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($menu as $item){?>
+								<tr>
+									<th scope="row"></th>
+									<td class="food-img"><img src="<?php echo $item['img']; ?>"></td>
+									<td><?php echo $item['nazev']; ?></td>
+									<td><?php echo $item['popis']; ?></td>
+									<td><?php echo $item['cena']; ?> Kč</td>
+									<td>
+										<?php if(!$item["trvala_polozka"]){ ?>
+										<?php echo $item['zbyva']; ?>
+										<?php }?>
+										<?php if($item["trvala_polozka"]){?>
+										Trvalá položka
+										<?php }?>
+									</td>
+									<td>
+										<?php if($item["trvala_polozka"] || $item["zbyva"]>0){?>
+										<input type="number" min=0 max="<?php echo $item['max'];?>"  name="<?php echo ('item:' . $item['id_polozky']); ?>"  value="0"/>  
+										<?php }?>
+									</td>
+									<?php if(in_array($this->session->userdata('role'),array('admin','operator'))){ ?>
+									<td scope="col">
+										<div class="button"><a class="button"  data-toggle="modal" data-target="#editItem<?php echo $item['id_polozky'];?>">Upravit</a></div>
+									</td>
+									<td scope="col">
+										<div class="button"><a href="<?php echo (base_url());echo ('index.php/restaurant/delete'); echo('?restaurant_id='.$restaurant['id_provozovny'].'&item_id='.$item['id_polozky']); ?>"class="button">Smazat</a></div>
+									</td>
+									<?php }?>
+								</tr>
+								<?php include("modalItem.html");}?>
+							</tbody>
+						</table>
+						<div class="restaurant-footer">
+							<?php if(in_array($this->session->userdata('role'),array('admin','operator'))){ ?>
+							<div class="button"><a  class="button" data-toggle="modal" data-target="#addItem">Přidat položku</a></div>
+							<?php }?>
+							<div class="button"><a  class="button" onclick="$('#order_details').modal('show');">Objednat</a></div>
+						</div>
+						<div class="modal fade" id="order_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Údaje pro objednávku</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<div class="form-group">  
+											<label>Telefon*</label>  
+											<input type="text" name="phone" class="form-control" value="<?php echo $this->session->userdata('phone')?>" required/>  
+											<span class="text-danger"><?php echo form_error('username'); ?></span>                 
+										</div>  
+										<div class="form-group">  
+											<label>Adresa*</label>  
+											<input type="text" name="adresa" class="form-control" value="<?php echo $this->session->userdata('address')?>" required/>  
+											<span class="text-danger"><?php echo form_error('password'); ?></span>  
+										</div>
+										<?php if(!$this->session->userdata('id')) {?>
+										<p>Pokud se zaregistrujete, můžete sledovat stav objednávky.</p>
+										<?php } ?>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" name="insert" value="order">Objednat</button> 
+										<?php if(!$this->session->userdata('id')) {?>
+										<button type="submit" name="insert" value="register">zaregistrovat</button>
+										<?php } ?>
+									</div>
+								</div>
+							</div>
+						</div>                      
+					</form>
+				</div>
+			</div>
+		</section>
+	</main>
+	<?php include("footer.html"); ?>
+</body>
+</html>

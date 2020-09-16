@@ -1,0 +1,77 @@
+    <form method="POST" action="admin/edit_user">
+    <div class="modal fade" id="editUser<?php echo $reg['id_stravnika'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editace</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+                    <div class="form-group">  
+                         <label>Jméno</label>  
+                         <input type="text" name="first_name:<?php echo $reg['id_stravnika'];?>" class="form-control" value="<?php echo $users[$reg['id_osoby']]['jmeno']; ?>" />  
+                         <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+                    </div>  
+                    <div class="form-group">  
+                         <label>Příjmení</label>  
+                         <input type="text" name="last_name:<?php echo $reg['id_stravnika'];?>" class="form-control" value="<?php echo $users[$reg['id_osoby']]['prijmeni']; ?>"/>  
+                         <span class="text-danger"><?php echo form_error('password'); ?></span>  
+                    </div> 
+                    <div class="form-group">  
+                         <label>Login</label>  
+                         <input type="text" name="login:<?php echo $reg['id_stravnika'];?>" class="form-control" value="<?php echo $reg['login']; ?>"/>  
+                         <span class="text-danger"><?php echo form_error('password'); ?></span>  
+                    </div>
+                    <div class="form-group">  
+                         <label>Telefon</label>  
+                         <input type="text" name="phone:<?php echo $reg['id_stravnika'];?>" class="form-control" value="<?php echo $users[$reg['id_osoby']]['telefon']; ?>"/>  
+                         <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+                    </div>
+                    <div class="form-group">  
+                         <label>Email</label>  
+                         <input type="text" name="email:<?php echo $reg['id_stravnika'];?>" class="form-control" value="<?php echo $users[$reg['id_osoby']]['email']; ?>"/>  
+                         <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+                    </div>
+                    <div class="form-group">  
+                         <label>Role</label>  
+                         <select class="form-control" name="role:<?php echo $reg['id_stravnika'];?>">
+                            <?php
+                            $selected_admin = "";
+                            $selected_driver = "";
+                            $selected_operator = "";
+                            $selected_user = "";
+                             if($reg['role'] == "user")
+                            {
+                                $selected_user = 'selected';
+                            }elseif($reg['role'] == "admin") 
+                            {
+                                $selected_admin = 'selected'; 
+                            }elseif($reg['role'] == "driver")
+                            {
+                                $selected_driver= 'selected';
+                            }else
+                            {
+                                $selected_operator= 'selected';
+                            }
+                            echo("<option  $selected_admin>admin</option>");
+                            echo("<option  $selected_operator>operator</option>");
+                            echo("<option  $selected_driver>driver</option>");
+                            echo("<option  $selected_user>user</option>");
+                            ?>
+                        </select>
+                        <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+                    </div>
+                    <input type="hidden" name="id_stravnika" value="<?php echo $reg['id_stravnika'];?>" />
+          </div>
+          <div class="modal-footer">
+                <div class="form-group">  
+                    <button type="submit" name="insert" value="edit_user">Editovat</button>
+                </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+

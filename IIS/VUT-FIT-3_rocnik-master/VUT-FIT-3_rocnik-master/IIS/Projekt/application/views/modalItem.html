@@ -1,0 +1,123 @@
+<div class="modal fade" id="editItem<?php echo $item['id_polozky'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Úprava jídla</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">  
+				 <label>Img</label>  
+				 <input type="text" name="img:<?php echo $item['id_polozky']; ?>" class="form-control" value="<?php echo $item['img']; ?>"/>  
+			</div> 
+			<div class="form-group">  
+				 <label>Jméno</label>  
+				 <input type="text" name="name:<?php echo $item['id_polozky']; ?>" class="form-control" value="<?php echo $item['nazev']; ?>" />  
+			</div> 
+			<div class="form-group">  
+				 <label>Popis</label>  
+				 <input type="text" name="description:<?php echo $item['id_polozky']; ?>" class="form-control" value="<?php echo $item['popis']; ?>"/>  
+			</div>
+			<div class="form-group">  
+				 <label>Cena</label>  
+				 <input type="number" min="0" name="price:<?php echo $item['id_polozky']; ?>" class="form-control" value="<?php echo $item['cena']; ?>"/>  
+			</div>
+			<div class="form-group">  
+				 <label>Zbývá</label>  
+				 <input type="number" min="1" name="remains:<?php echo $item['id_polozky']; ?>" class="form-control" value="<?php echo $item['zbyva']; ?>"/>  
+			 </div>
+			 <div class="form-group">  
+				 <label>Trvalá položka</label>
+				 <?php 
+				 if($item['trvala_polozka'])
+				 {
+					$checked = 'checked';
+				}
+				else
+				{
+					$checked = ''; 
+				}
+				$id_polozky = 'id_polozky';
+				$name='permanent:' . $item[$id_polozky];
+				echo("<input type='checkbox' name=$name  class='form-control checkbox' $checked>");
+				?>
+				<input type="hidden" name="restaurant" value="<?php echo $restaurant['id_provozovny']; ?>" />
+			</div>
+			 <div class="form-group">  
+				 <label>Pro diabetiky</label> 
+				 <?php 
+				 if(in_array('dia',$item['types']))
+				 {
+					$checked = 'checked';
+				}
+				else
+				{
+					$checked = ''; 
+				}
+				$id_polozky = 'id_polozky';
+				$name='dia:' . $item[$id_polozky];
+				echo("<input type='checkbox' name=$name  class='form-control checkbox' $checked>");
+				?>
+			</div>
+			<div class="form-group">  
+			 <label>Veganské</label> 
+			 <?php 
+			 if(in_array('vegan',$item['types']))
+			 {
+				$checked = 'checked';
+			}
+			else
+			{
+				$checked = ''; 
+			}
+			$id_polozky = 'id_polozky';
+			$name='vegan:' . $item[$id_polozky];
+			echo("<input type='checkbox' name=$name  class='form-control checkbox' $checked>");
+			?> 
+			<!--<input type="checkbox" name="vegan<?php echo $item['id_polozky']; ?>" class="form-control" />  -->
+			</div>
+			<div class="form-group">  
+				 <label>Vegetarianské</label>
+				 <?php 
+				 if(in_array('vegetarian',$item['types']))
+				 {
+					$checked = 'checked';
+				}
+				else
+				{
+					$checked = ''; 
+				}
+				$id_polozky = 'id_polozky';
+				$name='vegetarian:' . $item[$id_polozky];
+				echo("<input type='checkbox' name=$name  class='form-control checkbox' $checked>");
+				?>  
+			<!--<input type="checkbox" name="vegetarian<?php echo $item['id_polozky']; ?>" class="form-control" />  -->
+			</div>
+			<div class="form-group">  
+				 <label>Bezlepkové</label> 
+				 <?php 
+				 if(in_array('gluten_free',$item['types']))
+				 {
+					$checked = 'checked';
+				}
+				else
+				{
+					$checked = ''; 
+				}
+				$id_polozky = 'id_polozky';
+				$name='gluten_free:' . $item[$id_polozky];
+				echo("<input type='checkbox' name=$name  class='form-control checkbox' $checked>");
+				?> 
+				<!-- <input type="checkbox" name="gluten_free<?php echo $item['id_polozky']; ?>" class="form-control" /> --> 
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="form-group">  
+				<button type="submit" name="insert" value="editItem:<?php echo $item['id_polozky']; ?>">Uložit</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

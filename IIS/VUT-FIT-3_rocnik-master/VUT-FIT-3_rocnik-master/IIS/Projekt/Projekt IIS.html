@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0067)https://www.fit.vutbr.cz/study/courses/IIS/private/projekt/doc.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-2">
+    
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Varianta termínu - 2. Jídelna: objednávka a rozvoz jídel</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Petr Marek <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xmarek69@stud.fit.vutbr.cz">xmarek69@stud.fit.vutbr.cz</a> -
+		Databáze(návrh a práce s ní) a části backendu.
+	</dd>
+	<dd>Jakub Gajdošík <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xgajdo24@stud.fit.vutbr.cz">xgajdo24@stud.fit.vutbr.cz</a> - 
+		Většina front endu a části backendu.
+	</dd>
+  <dd>Daniel Bílý <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xbilyd01@stud.fit.vutbr.cz">xbilyd01@stud.fit.vutbr.cz</a> - 
+		Práce s databází a backend.
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xmarek69/IIS/">http://www.stud.fit.vutbr.cz/~xmarek69/IIS/</a></dd>
+	
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<table>
+<tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
+<tr><td>operator</td><td>operator</td><td>Operátor</td></tr>
+<tr><td>ridic</td><td>ridic</td><td>Řidič</td></tr>
+<tr><td>uzivatel</td><td>uzivatel</td><td>Uživatel</td></tr>
+</tbody></table>
+
+<img src="UCD.jpg">
+
+<h2>Implementace</h2>
+<p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+Aplikace je implementována ve frameworku code igniter, který následuje klasický vzor MVC. Skripty jsou tedy umístěny ve složkách podle tohoto vzoru(models, views, controllers). Máme 3 modely: Pro restaurace, uživatele a objednávky. Každý controller má většinou svůj view. V controllers je 7 skriptů, které jsou pojmenovány podle toho co implementují. Admin.php implementuje správu uživatelů pro admina. Account.php funkce týkající se účtů(změna dat v účtu a změna hesla). Driver.php pak stránku pro řidiče, zde si řidič může prohlížet objednávky, které dostal za práci doručit. Po doručení je může odkliknout jako hotové. Dalším souborem je Home.php, ve kterém je hlavní stránka, přihlašování a registrace. Operator.php obsahuje všechny funkcionality týkající se oparátorů, operátor má zde možnost rušit objednávky uživatelů a nebo je přiřazovat jednotlivým řidičům. Orders.php zobrazuje přehled objednávek daného uživatele. Restaurant.php má vše týkající se restaurací(jejich informace, jídelníčky apod.).
+
+
+<h3>Databáze</h3>
+<img src="DB.jpg">
+
+<h2>Instalace</h2>
+
+Stručně popište: 
+<ul>
+<li>postup instalace na server,</li>
+<li>softwarové požadavky (verze PHP apod.),</li>
+<li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
+</ul>
+
+Postup instalace na server: Stáhnout code igniter 3 z oficiálních stránek https://codeigniter.com/en/download. Nahradit složku application(na místo původní vložit naši). Do stejné složky(ve které je složka application) vložit naši složku assets.<br>
+
+Softwarové požadavky: Aplikaci jsme vyvíjeli za pomocí PHP verze 7.2(která je na evě), předpokládám že by ale měla běžet i na starších verzích(5.6+).<br>
+
+Pro inicializaci databáze je přítomen skript db.sql, který stačí importovat například do phpmyadmin. Vytvoří se všechny potřebné tabulky a naplní se daty. Databáze už ale musí být vytvořena předem.<br>
+
+Odevzdaná aplikace je nastavena, aby se připojila k databázi na evě xmarek69. Pokud by tohle bylo potřeba změnit, stačí přenastavit v application/config/database.php úplně dole.<br>
+
+<h2>Známé problémy</h2>
+Nejsou hashována hesla kvůli transparentnosti při průběžném testování a při kontrole po odevzdání. 
+
+
+
+</body></html>

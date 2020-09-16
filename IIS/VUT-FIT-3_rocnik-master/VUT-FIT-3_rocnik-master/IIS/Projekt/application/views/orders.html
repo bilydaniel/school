@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>Jídlo dáme</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<link href="/www.google-analytics.com" rel="dns-prefetch">
+	<link href="/ajax.googleapis.com" rel="dns-prefetch">
+	<link href="../assets/css/style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+</head>
+<body class="home">
+
+	<?php include("header.html"); ?>
+
+	<main class="main" >
+		<section id="orders-wrapper">
+			<div class="orders">
+				<div class="orders-header">
+					<h2>Objednávky</h2>
+				</div>
+				<?php if($this->session->userdata('id')){ ?>
+				<div class="orders-body">
+					<?php foreach(array_reverse($orders) as $order){?>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">Jméno</th>
+								<th scope="col">Popis</th>
+								<th scope="col">Cena</th>
+								<th scope="col">Množství</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php $price = 0; 
+							foreach($order['order_items'] as $item){
+							?>
+							<tr>
+								<th scope="row"></th>
+								<td><?php echo $items[$item['id_polozky']]['nazev']; ?></td>
+								<td><?php echo $items[$item['id_polozky']]['popis']; ?></td>
+								<td><?php echo $items[$item['id_polozky']]['cena']; ?> Kč</td>
+								<td><?php echo $item['mnozstvi']; ?></td>
+							</tr>
+							<?php $price += $items[$item['id_polozky']]['cena'] * $item['mnozstvi'];  
+						}?>
+						<tr>
+							<th scope="row"></th>
+							<td>Celkem:</td>
+							<td></td>
+							<td><?php echo $price; ?> Kč</td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="orders-footer">
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: <?php echo 33.4*$order['stav'].'%' ;?>" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><?php if ($order['stav'] == 1){echo "Objednávka přijata";}elseif($order['stav'] == 2){echo "Objednávka na cestě";}else{ echo "Dobrou chuť"; } ?></div>
+					</div>
+					
+					<form method="post" action="<?php echo base_url();?>index.php/orders/delete_order">
+						<button name='delete' value="<?php echo $order['id_objednavky'];?>">Zrušit objednávku</button>
+					</form>
+					
+				</div>
+
+
+				<hr>
+				<?php }?>
+			</div>
+			<?php }else{ ?>
+			<div class="orders-body">
+				<p>
+					Vaše objednávka byla přijata a právě se vyřizuje.
+				</p>
+			</div>
+			<?php } ?>
+		</div>
+	</section>
+
+</main>
+<?php include("footer.html"); ?>
+<?php if($this->session->userdata('osoba_id')){ ?>
+DOKONCIT OBJEDNAVKU
+<?php
+echo "<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#register').modal('show');
+	});
+</script>";
+
+?>
+<?php } ?>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>Jídlo dáme</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<link href="/www.google-analytics.com" rel="dns-prefetch">
+	<link href="/ajax.googleapis.com" rel="dns-prefetch">
+	<link href="assets/css/style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+</head>
+<body class="home">
+	<?php include("header.html"); ?>
+	<form  action="<?php echo base_url();?>index.php/home/add_restaurant" method="post">   
+		<div class="modal fade" id="addRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Přidání restaurace</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">  
+						 <label>Img</label>  
+						 <input type="text" name="img" class="form-control" />  
+						 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+					 </div> 
+					 <div class="form-group">  
+						 <label>Jméno</label>  
+						 <input type="text" name="name" class="form-control" />  
+						 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+					 </div> 
+					 <div class="form-group">  
+						 <label>Popis</label>  
+						 <input type="text" name="description" class="form-control" />  
+						 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+					 </div>
+					 <div class="form-group">  
+						 <label>Adresa</label>  
+						 <input type="text" name="address" class="form-control" />  
+						 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+					 </div>
+					 <div class="form-group">  
+						 <label>Telefoní číslo</label>  
+						 <input type="text" name="number" class="form-control" />  
+						 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+					 </div>
+					 <div class="form-group">  
+						 <label>Otevírací doba</label>  
+						 <input type="time" name="open_time" class="form-control" />  
+						 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+					 </div>
+					 <div class="form-group">  
+						 <label>Zavírací doba</label>  
+						 <input type="time" name="close_time" class="form-control" />  
+						 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+					 </div>
+				 </div>
+				 <div class="modal-footer">
+					<div class="form-group">  
+						<button type="submit" name="insert" value="addRestaurant">Uložit</button>
+					</div>  
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<main class="main" onload="">
+	<section id="restaurant-items">
+		<?php foreach($restaurants as $restaurant){?>
+		<form action="<?php echo base_url();?>index.php/Restaurant" method="post">
+			<div class="item item-1">
+				<div class="item-img"><img src="<?php echo $restaurant['img']; ?>"></div>
+				<div class="item-body">
+					<h2><?php echo $restaurant["nazev"]; ?></h2>
+					<p><?php echo $restaurant["popis"]; ?></p>
+				</div>
+				<div class="item-footer">
+					<?php if(in_array($this->session->userdata('role'),array('admin','operator'))){ ?>
+					<button class="redirect-link" name="remove_restaurant" value="<?php echo $restaurant['id_provozovny'];?>">Odebrat</button>
+					<?php }?>
+					<button name="id" value="<?php echo $restaurant['id_provozovny']; ?>">Zobrazit</button>
+				</div>
+			</div>
+			
+		</form>
+		<?php }?>
+		<?php if(in_array($this->session->userdata('role'),array('admin','operator'))){ ?>
+		<button class="addButton" data-toggle="modal" data-target="#addRestaurant">Přidat</button>
+		<?php }?>
+	</section>
+</main>
+
+<?php include("footer.html"); ?>
+<?php if($this->session->userdata('login_err')){echo "<script>alert('spatne jmeno nebo heslo'); $('#login').modal('show');</script>";} ?>
+
+</body>
+</html>
+

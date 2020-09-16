@@ -1,0 +1,93 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>Jídlo dáme</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<link href="/www.google-analytics.com" rel="dns-prefetch">
+	<link href="/ajax.googleapis.com" rel="dns-prefetch">
+	<link href="../assets/css/style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+</head>
+<body class="home">
+
+	<?php include("header.html"); ?>
+
+	<main class="main" >
+		<section id="orders-wrapper">
+			<div class="orders">
+				<div class="orders-header">
+					<h2>Přiřazení objednávek</h2>
+				</div>
+				<div class="orders-body">
+					<form method="POST" action="operator/resolve_assignment">
+						<select class="form-control" name="id_driver">
+							<?php foreach($drivers as $driver){?>
+							<option value="<?php echo $driver['id_osoby'];?>" selected="selected">
+								<?php echo $driver['id_osoby'].', '.$users[$driver['id_osoby']]['jmeno'].' '.$users[$driver['id_osoby']]['prijmeni'].', '.$users[$driver['id_osoby']]['telefon']; ?>
+							</option>
+							<?php };?>
+						</select>
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col"></th>
+									<th scope="col">ID</th>
+									<th scope="col">Objednávka</th>
+									<th scope="col">Restaurace</th>
+									<th scope="col">Adresa</th>
+									<th scope="col">Název</th>
+									<th scope="col">Příjemce</th>
+									<th scope="col">Adresa</th>
+									<th scope="col">Příjmení</th>
+									<th scope="col">Telefon</th>
+									<th scope="col">Čas</th>
+									<th scope="col">Cena</th>
+									<th scope="col">Přiřadit</th>
+									<th scope="col">Smazat</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($orders as $order){?>
+								<tr>
+									<th scope="row"></th>
+									<td><?php echo $order['id_objednavky']; ?></td>
+									<td><?php echo $items[$order['id_objednavky']]; ?></td>
+									<td></td>
+									<td><?php echo $restaurants[$order['id_provozovny']]['adresa']; ?></td>
+									<td><?php echo $restaurants[$order['id_provozovny']]['nazev']; ?></td>
+									<td></td>
+									<td><?php echo $users[$order['id_osoby']]['adresa']; ?></td>
+									<td><?php echo $users[$order['id_osoby']]['prijmeni']; ?></td>
+									<td><?php echo $users[$order['id_osoby']]['telefon']; ?></td>
+									<td><?php echo $order['cas']; ?></td>
+									<td><?php echo $order['cena']; ?></td>
+									<td scope="col">
+										<input class="checkbox" type="checkbox" name="<?php echo $order['id_objednavky'];?>">
+									</td>
+									<td>
+										
+										<div class="button"><a href="<?php echo (base_url());echo ('index.php/orders/delete_order'); echo('?order_id='.$order['id_objednavky']); ?>"class="button">Smazat</a>
+										</div>
+										
+									</td>
+								</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+						<button>Vyřídit</button>
+					</form>
+				</div>
+			</div>
+		</section>
+	</main>
+	<?php include("footer.html"); ?>
+</body>
+</html>

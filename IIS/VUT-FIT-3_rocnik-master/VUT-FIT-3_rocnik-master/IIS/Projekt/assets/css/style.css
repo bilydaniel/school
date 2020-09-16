@@ -1,0 +1,475 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  color: #15161a;
+}
+
+button {
+  border: none;
+  padding: 0rem 0rem;
+  background: #f7c43a;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  display:  block;
+  display: none;
+  color: #15161a;
+  text-decoration: none;
+  display: block;
+  padding: 1rem 2rem;
+}
+
+button:hover{
+  background: #15161a;
+  color: #f7c43a;
+}
+
+img{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.button {
+  border: none;
+  padding: 0rem 0rem;
+  background: #f7c43a;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  display:  block;
+}
+
+.button a{
+  color: #15161a;
+  text-decoration: none;
+  display: block;
+  padding: 1rem 2rem;
+}
+
+.button:hover a{
+  background: #15161a;
+  color: #f7c43a !important;
+}
+
+.checkbox{
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.progress{
+  min-width: 100%;
+  margin-bottom: 1rem;
+}
+
+.progress-bar{
+  color: black ;
+}
+
+header {
+  background-image: url('../img/header.jpg');
+  background-position: center center;
+  background-color: #15161a;
+  background-size: cover;
+  min-height: 25vh;
+  width: 100%;
+  position: relative;
+  padding-top: 1rem;
+}
+
+header:after {
+  top: 0;
+  position: absolute;
+  height: 25vh;
+  width: 100%;
+  content: "";
+  padding-top: 1rem;
+  background: rgba(21, 22, 26, 0.6);
+}
+
+header.header-narrow, header.header-narrow:after {
+  min-height: 30vh;
+  height: 30vh;
+}
+
+header button{
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  cursor: pointer;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  transition: .3s ease-in-out;
+  font-weight: 100;
+}
+
+header button:hover{
+  color: #f7c43a;
+  background: none;
+
+}
+
+header .header-inner {
+  position: relative;
+  z-index: 2;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+header .header-inner #logo {
+  text-decoration: none;
+  letter-spacing: 2px;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+header .header-inner #logo h1 {
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  margin: 0 0 0 1rem;
+  font-size: 4rem;
+  color: #fff;
+}
+
+header .header-inner #logo h1 span {
+  color: #f7c43a;
+}
+
+header .header-inner nav ul {
+  padding: 0;
+  margin: 0;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+header .header-inner nav ul li {
+  list-style: none;
+  letter-spacing: 2px;
+}
+
+header .header-inner nav ul li:not(:last-of-type) {
+  margin-right: 3rem;
+}
+
+.nav ul {
+  list-style: none;
+}
+
+.redirect-link {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #f7c439 !important;
+  background: none;
+  max-width: initial;
+}
+
+main h2 {
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+main h2 span {
+  color: #f7c43a;
+}
+
+main #restaurant-items {
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  background: whitesmoke;
+  padding: 2rem 2rem;
+  align-items: center;
+}
+
+main #restaurant-items form{
+  width: 85%;
+}
+
+main #restaurant-items .item {
+  display: flex;
+  min-width: 45rem;
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-shadow: 0px 0px 26px -2px rgba(0, 0, 0, 0.15);
+}
+
+main #restaurant-items .item:not(:last-of-type) {
+  margin-right: 2rem;
+}
+
+main #restaurant-items .addButton {
+  width: fit-content;
+  width: -moz-fit-content;
+}
+
+
+main #restaurant-items .item-img {
+  min-width: 200px;
+  height: 200px;
+  background-position: center center;
+  /*background-color: #15161a;*/
+  background-size: cover;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+}
+
+main #restaurant-items .item .item-body {
+  margin-bottom: 1rem;
+}
+
+main #restaurant-items .item .item-body p {
+  color: #8c90a2;
+}
+
+main #restaurant-items .item .item-footer {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  flex: auto;
+}
+
+main #restaurant-items .item .item-footer button{
+  margin: 0 0.5rem;
+}
+
+main #orders-wrapper
+,main #restaurant-wrapper {
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  background: whitesmoke;
+  padding: 2rem 2rem;
+  align-items: center;
+}
+
+main #orders-wrapper .orders
+,main #restaurant-wrapper .restaurant {
+  display: flex;
+  flex-direction: column;
+  min-width: 45rem;
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 75%;
+  box-shadow: 0px 0px 26px -2px rgba(0, 0, 0, 0.15);
+  min-width: min-content;
+}
+
+main #restaurant-wrapper .restaurant-header {
+  display: flex;
+  min-width: 44rem;
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+main #restaurant-wrapper .restaurant-img {
+  min-width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-size: cover;
+  margin-bottom: 1rem;
+  margin-right: 2rem;
+}
+
+main #restaurant-wrapper .restaurant-info {
+  margin-bottom: 1rem;
+  width: -webkit-fill-available;
+}
+
+main #restaurant-wrapper .restaurant-contact {
+  padding: 0 1rem 0 2rem;
+  min-width: 20rem;
+}
+
+main #restaurant-wrapper .spec-diet {
+  align-self: flex-start;
+  padding-left: 2rem;
+  padding: 0;
+  margin: 0;
+}
+
+main #restaurant-wrapper #spec-diet{
+  padding: 0 2rem;
+  margin: 0;
+}
+
+main #restaurant-wrapper .spec-diet .form-check{
+  margin-right: 1rem;
+}
+
+main #restaurant-wrapper .spec-diet button {
+  padding: 0 0.5rem;
+  height: 1.5rem;
+  font-size: medium;
+  width: fit-content;
+  width: -moz-fit-content;
+}
+main #orders-wrapper form
+,main #restaurant-wrapper form
+,main #restaurant-wrapper .restaurant-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+main #orders-wrapper .table .button
+,main #restaurant-wrapper .table .button {
+  height: 1.5rem;
+  font-size: medium;
+  width: fit-content;
+  width: -moz-fit-content;
+}
+main #orders-wrapper .table .button a
+,main #restaurant-wrapper .table .button a{
+  padding: 0 0.5rem;
+}
+
+main #restaurant-wrapper .food-img {
+  background-position: center center;
+  background-size: cover;
+  padding:0; 
+  max-width: 1.5rem;
+  max-height: 1.5rem;
+}
+
+main #restaurant-wrapper .restaurant-footer {
+  display: flex;
+  flex-direction: row;
+}
+
+main #restaurant-wrapper .restaurant-footer div{
+  margin: 0 0.5rem;
+}
+
+main #orders-wrapper h2{
+  margin-bottom: 2rem;
+}
+
+main #orders-wrapper hr{
+  margin-bottom: 4rem;
+}
+main #orders-wrapper .orders-footer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer {
+  background: #15161a;
+  color: whitesmoke;
+  font-weight: 100;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  font-size: 14px;
+  padding: 2rem 5rem;
+}
+
+footer #logo {
+  text-decoration: none;
+  letter-spacing: 2px;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+footer #logo h1 {
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  margin: 0 0 0 1rem;
+  font-size: 4rem;
+  color: #fff;
+}
+
+footer #logo h1 span {
+  color: #f7c43a;
+}
+
+footer h3 {
+  color: #f7c43a;
+  text-transform: uppercase;
+  font-weight: 100;
+  margin-bottom: .5rem;
+}
+
+footer hr {
+  border-color: #373943;
+  margin-bottom: .8rem;
+}
+
+footer ul {
+  margin: 0;
+  padding: 0;
+}
+
+footer ul li {
+  list-style: none;
+}
+
+footer ul li:not(:last-of-type) {
+  margin-bottom: .3rem;
+}
+
+footer ul li a {
+  color: whitesmoke;
+  text-decoration: none;
+  transition: .3s ease-in-out;
+}
+
+footer ul li a:hover {
+  text-decoration: underline;
+}
+
+footer .copyright {
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+footer .copyright small {
+  font-weight: 100;
+  display: block;
+  margin-bottom: .5rem;
+  letter-spacing: normal;
+}
+
+footer .copyright span {
+  color: #f7c43a;
+}
+
+footer .copyright .socials {
+  margin-bottom: .5rem;
+}
+
+footer .copyright .socials .fa {
+  cursor: pointer;
+  color: #f7c43a;
+}
+
+footer .copyright .socials .fa-inverse {
+  color: #15161a;
+}

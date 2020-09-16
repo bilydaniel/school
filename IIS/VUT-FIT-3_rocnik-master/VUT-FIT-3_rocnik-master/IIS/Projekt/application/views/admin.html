@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<title>Jídlo dáme</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+	<link href="/www.google-analytics.com" rel="dns-prefetch">
+	<link href="/ajax.googleapis.com" rel="dns-prefetch">
+	<link href="../assets/css/style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+</head>
+<body class="home">
+
+	<?php include("header.html"); ?>
+
+	<main class="main" >
+		<section id="orders-wrapper">
+			<div class="orders">
+				<div class="orders-header">
+					<h2>Správa uživatelů</h2>
+				</div>
+				<div class="orders-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">ID</th>
+								<th scope="col">Jméno</th>
+								<th scope="col">Příjmení</th>
+								<th scope="col">Login</th>
+								<th scope="col">Telefon</th>
+								<th scope="col">Email</th>
+								<th scope="col">Role</th>
+								<th scope="col">Upravit</th>
+								<th scope="col">Smazat</th>
+							</tr>
+						</thead>  
+						<tbody>     
+							<?php foreach($registered as $reg){?>
+							<form >
+								<tr>
+									<th scope="row"></th>
+									<td><?php echo $reg['id_osoby']; ?></td>
+									<td><?php echo $users[$reg['id_osoby']]['jmeno']; ?></td>
+									<td><?php echo $users[$reg['id_osoby']]['prijmeni']; ?></td>
+									<td><?php echo $reg['login']; ?></td>
+									<td><?php echo $users[$reg['id_osoby']]['telefon']; ?></td>
+									<td><?php echo $users[$reg['id_osoby']]['email']; ?></td>
+									<td><?php echo $reg['role']; ?></td>
+									<td>
+										<div class="button"><a class="button"  data-toggle="modal" data-target="#editUser<?php echo $reg['id_stravnika'];?>">Upravit</a></div>
+									</td>
+									<td>
+									 <div class="button"><a href="<?php echo (base_url());echo ('index.php/admin/delete_user'); echo('?id_stravnika='.$reg['id_stravnika'].'&id_osoby='.$reg['id_osoby']); ?>"class="button">Smazat</a>
+									 </div>
+								 </td>
+							 </tr>
+						 </form>
+						 <?php include("modalUser.html");?>
+						 <?php } ?>
+					 </tbody>
+				 </table>
+			 </div>
+		 </div>
+	 </section>
+ </main>
+ <?php include("footer.html"); ?>
+</body>
+</html>

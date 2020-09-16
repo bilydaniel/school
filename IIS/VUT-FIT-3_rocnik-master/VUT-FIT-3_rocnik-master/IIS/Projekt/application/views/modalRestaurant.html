@@ -1,0 +1,114 @@
+
+<form method="post" action="<?php echo base_url(); ?>index.php/restaurant/edit_restaurant">   
+		<div class="modal fade" id="editRestaurant" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Úprava restaurace</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">  
+					 <label>Img</label>  
+					 <input type="text" name="img" class="form-control" value="<?php echo $restaurant['img']; ?>"/>  
+			 </div> 
+			 <div class="form-group">  
+					 <label>Jméno</label>  
+					 <input type="text" name="name" class="form-control" value="<?php echo $restaurant['nazev']; ?>" />  
+			 </div> 
+			 <div class="form-group">  
+					 <label>Popis</label>  
+					 <input type="text" name="description" class="form-control" value="<?php echo $restaurant['popis']; ?>"/>  
+			 </div>
+			 <div class="form-group">  
+					 <label>Adresa</label>  
+					 <input type="text" name="address" class="form-control" value="<?php echo $restaurant['adresa']; ?>"/>  
+			 </div>
+			 <div class="form-group">  
+					 <label>Číslo</label>  
+					 <input type="text" name="number" class="form-control" value="<?php echo $restaurant['telefon']; ?>"/>  
+			 </div>
+			 <div class="form-group">  
+					 <label>Otevírací doba</label>  
+					 <input type="time" name="open_time" class="form-control" value="<?php echo $restaurant['oteviraci_doba']; ?>"/>  
+			 </div>
+			 <div class="form-group">  
+					 <label>Zavírací doba</label>  
+					 <input type="time" name="close_time" class="form-control" value="<?php echo $restaurant['zaviraci_doba']; ?>"/>  
+			 </div>
+			 <input type="hidden" name="restaurant" value="<?php echo $restaurant['id_provozovny']; ?>" />
+	 </div>
+	 <div class="modal-footer">
+		<div class="form-group">  
+				<button type="submit" name="insert" value="editItem">Uložit</button>
+		</div>  
+</div>
+</div>
+</div>
+</div>
+</form>
+
+<form action="<?php echo base_url();?>index.php/restaurant/add_item" method="post">   
+		<div class="modal fade" id="addItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Přidání jídla</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">  
+					 <label>Img</label>  
+					 <input type="text" name="img" class="form-control" />  
+			 </div> 
+			 <div class="form-group">  
+					 <label>Jméno*</label>  
+					 <input type="text" name="name" class="form-control" required />  
+			 </div> 
+			 <div class="form-group">  
+					 <label>Popis*</label>  
+					 <input type="text" name="description" class="form-control" required/>  
+			 </div>
+			 <div class="form-group">  
+					 <label>Cena*</label>  
+					 <input type="number" min="0" name="price" class="form-control" required/>  
+			 </div>
+			 <div class="form-group">  
+					 <label>Zbývá</label>  
+					 <input type="number" min="1" name="remains" class="form-control" value="1"/>  
+			 </div>
+ 			 <div class="form-group">  
+					 <label>Trvalá položka</label>  
+					 <input type="checkbox" name="permanent" class="checkbox form-control" />  
+			 </div>
+			 <div class="form-group">  
+					 <label>Pro diabetiky</label>  
+					 <input type="checkbox" name="dia" class="checkbox form-control" />  
+			 </div>
+			 <div class="form-group">  
+					 <label>Veganské</label>  
+					 <input type="checkbox" name="vegan" class="checkbox form-control" />  
+			 </div>
+			 <div class="form-group">  
+					 <label>Vegetarianské</label>  
+					 <input type="checkbox" name="vegetarian" class="checkbox form-control" />  
+			 </div>
+			 <div class="form-group">  
+					 <label>Bezlepkové</label>  
+					 <input type="checkbox" name="gluten_free" class="checkbox form-control" />  
+			 </div>
+			 <input type="hidden" name="restaurant" value="<?php echo $restaurant['id_provozovny']; ?>" />  
+	 </div>
+	 <div class="modal-footer">
+		<div class="form-group">  
+				<button type="submit" name="insert" value="editItem">Přidat</button>
+		</div>  
+</div>
+</div>
+</div>
+</div>
+</form>

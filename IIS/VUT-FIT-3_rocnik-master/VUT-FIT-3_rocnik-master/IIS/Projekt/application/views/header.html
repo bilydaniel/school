@@ -1,0 +1,199 @@
+<header >
+	<div class="header-inner">
+		<a href="http://147.229.176.14/~xmarek69/IIS/index.php" id="logo">
+			<h1>Jídlo <span>dáme</span></h1>
+		</a>
+		<nav >
+			<ul>
+				<li><button onclick="window.location.href = 'http://147.229.176.14/~xmarek69/IIS/index.php';">Restaurace</button>
+					<?php if(!$this->session->userdata('id')){?>
+					<li><button data-toggle="modal" data-target="#login">Přihlásit</button>
+						<li><button data-toggle="modal" data-target="#register">Registrovat</button>
+							<?php }else{ ?>
+							<?php if($this->session->userdata('role') == 'admin') { ?>
+							<li><form method="post" action="<?php echo base_url(); ?>index.php/Admin"><button>Admin</button></form>
+								<?php }?>
+								<?php if(in_array($this->session->userdata('role'),array('admin','operator'))) { ?>
+								<li><form method="post" action="<?php echo base_url(); ?>index.php/Operator"><button>Operátor</button></form>
+									<?php }?>
+									<?php if(in_array($this->session->userdata('role'),array('admin','driver'))) { ?>
+									<li><form method="post" action="<?php echo base_url(); ?>index.php/Driver"><button>Řidič</button></form>
+										<?php }?>
+										<li><form method="post" action="<?php echo base_url(); ?>index.php/Orders"><button>Objednávka</button></form>
+											<li><button data-toggle="modal" data-target="#account">Účet</button>
+												<li><form method="post" action="<?php echo base_url(); ?>index.php/home/logout"><button>Odhlásit</button></form>
+													<?php }?>
+												</ul>
+											</nav>
+										</div>
+									</header>
+									<form method="post" action="<?php echo base_url(); ?>index.php/home/validate_login">  
+										<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">Přihlášení</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body">
+														<div class="form-group">  
+														 <label>Zadejte login</label>  
+														 <input type="text" name="username" class="form-control" />  
+														 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+													 </div>  
+													 <div class="form-group">  
+														 <label>Zadejte heslo</label>  
+														 <input type="password" name="password" class="form-control" />  
+														 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+													 </div>  
+												 </div>
+												 <div class="modal-footer">
+													<div class="form-group">
+														<button type="submit" name="insert" value="Login" >Přihlásit</button>  
+													</div>  
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+
+								<form method="post" action="<?php echo base_url(); ?>index.php/home/register">  
+									<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">Registrace</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<div class="form-group">  
+													 <label>Zadejte login*</label>  
+													 <input type="text" name="username" class="form-control" required />  
+													 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+												 </div>  
+												 <div class="form-group">  
+													 <label>Zadejte Heslo*</label>  
+													 <input type="password" name="password" class="form-control"required />  
+													 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+												 </div> 
+												 <div class="form-group">  
+													 <label>Potvrďte heslo*</label>  
+													 <input type="password" name="confirm_password" class="form-control" required/>  
+													 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+												 </div>
+												 <div class="form-group">  
+													 <label>Zadejte telefon*</label>  
+													 <input type="text" name="phone" class="form-control" required/>  
+													 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+												 </div>
+												 <div class="form-group">  
+													 <label>Zadejte adresu*</label>  
+													 <input type="text" name="address" class="form-control" required/>  
+													 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+												 </div>
+												 <input type="hidden" name="osoba_id" value="<?php echo $this->session->userdata('osoba_id');?>" />
+											 </div>
+											 <div class="modal-footer">
+												<div class="form-group">  
+													<button type="submit" name="insert" value="Register">Registrovat</button>
+												</div>  
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+
+							<form method="post" action="<?php echo base_url(); ?>index.php/account/update_user">  
+								<div class="modal fade" id="account" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Váš účet</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<div class="form-group">  
+												 <label>Login*</label>  
+												 <input type="text" name="username" class="form-control" value="<?php echo $this->session->userdata('username');?>" required/>  
+												 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+											 </div>  
+											 <div class="form-group">  
+												 <label>Jmeno</label>  
+												 <input type="text" name="jmeno" class="form-control" value="<?php echo $user['jmeno'];?>"/>  
+												 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+											 </div>
+											 <div class="form-group">  
+												 <label>Prijmeni</label>  
+												 <input type="text" name="prijmeni" class="form-control" value="<?php echo $user['prijmeni'];?>"/>  
+												 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+											 </div> 
+											 <div class="form-group">  
+												 <label>Telefon*</label>  
+												 <input type="text" name="telefon" class="form-control" value="<?php echo $user['telefon'];?>" required/>  
+												 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+											 </div> 
+											 <div class="form-group">  
+												 <label>email</label>  
+												 <input type="text" name=email class="form-control" value="<?php echo $user['email'];?>"/>  
+												 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+											 </div> 
+											 <div class="form-group">  
+												 <label>Adresa*</label>  
+												 <input type="text" name="adresa" class="form-control" value="<?php echo $user['adresa'];?>"required/>  
+												 <span class="text-danger"><?php echo form_error('username'); ?></span>                 
+											 </div>
+										 </div>
+										 <div class="modal-footer">
+											<a onclick="$('#account').modal('hide');$('#password').modal('show'); " class="redirect-link">Změnit heslo</a>  
+											<div class="form-group">
+												<button type="submit" name="insert" value="AcountInfo">Uložit údaje</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>  
+
+						<form method="post" action="<?php echo base_url(); ?>index.php/account/change_password">   
+							<div class="modal fade" id="password" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Změna hesla</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">  
+											 <label>Dosavadní heslo</label>  
+											 <input type="password" name="password" class="form-control" />  
+											 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+										 </div> 
+										 <div class="form-group">  
+											 <label>Nové heslo</label>  
+											 <input type="password" name="new_password" class="form-control" />  
+											 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+										 </div> 
+										 <div class="form-group">  
+											 <label>Potvrzení nového hesla</label>  
+											 <input type="password" name="new_password_conf" class="form-control" />  
+											 <span class="text-danger"><?php echo form_error('password'); ?></span>  
+										 </div>
+									 </div>
+									 <div class="modal-footer">
+										<div class="form-group">  
+											<button type="submit" name="insert" value="ChangePassword">Změnit heslo</button>
+										</div>  
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					

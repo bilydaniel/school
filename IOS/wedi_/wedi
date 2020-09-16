@@ -1,0 +1,180 @@
+#!/bin/sh
+POSIXLY_CORRECT=yes
+
+
+#IOS Projekt1
+#28.3.2018
+#xbilyd01
+
+EDITOR=
+VISUAL=
+current_editor=
+WEDI_RC=
+		
+#checking file existence
+		cat $WEDI_RC | awk -F ";" -vp="$WEDI_RC" '{if(! system("test -f " $2"/"$1)){print $1";"$2";"$3 > p }}'
+
+		
+
+#setting editor
+		if [ ! -z $EDITOR ]
+		then 
+			current_editor=$EDITOR
+		elif [ ! -z $VISUAL ]
+		then
+			current_editor=$VISUAL
+		else
+			current_editor="vi"
+		fi
+
+ 
+
+		if [ -z $WEDI_RC ]
+		then
+			echo Neni nastaven WEDI_RC
+			exit 1
+		fi
+		
+		if [ ! -e $WEDI_RC ]
+		then
+			touch $WEDI_RC
+		fi
+		
+		type realpath >/dev/null 2>&1 || { echo >&2 "Neni nainstalovan realpath"; exit 1; }
+
+#SOUBOR
+	if [ -f "$1" ]
+	then
+		
+		echo "$(basename "$1");$(dirname "`realpath "$1"`");`date +%Y-%m-%d`">>$WEDI_RC
+		
+		$current_editor "$1"
+		exit
+	fi
+
+#ADRESAR
+	if [ -d "$1" ]||[ $# -eq 0 ]
+	then
+		if [ ! -z "$1" ]
+		then
+			p=`realpath "$1"`
+		else
+			p=`pwd`			
+		fi
+		
+		DIR=$(cat $WEDI_RC | awk -F ";" -vp="$p" '{ if($2==p){ print $2"/"$1 }}' |tail -n 1)
+
+		if [ -z "$DIR" ]
+		then
+			echo V danem adresari se jeste needitovalo
+			exit 1
+
+		fi
+
+		echo "$(basename "$DIR");$(dirname "`realpath "$DIR"`");`date +%Y-%m-%d`">>$WEDI_RC
+
+		$current_editor "$DIR"
+		exit
+	fi
+
+
+
+#-m ADRESAR
+	if [ "$1" = "-m" ]
+	then
+		if [ ! -z "$2" ]
+		then
+			p=`realpath "$2"`
+		else
+			p=`pwd`			
+		fi
+
+	DIR=$(cat $WEDI_RC | awk -F ";" -vp="$p" '{ if($2==p){ print $2"/"$1 }}' | sort | uniq -c | sort -g -r| awk '{print $2}'|head -n 1)
+
+		if [ -z "$DIR" ]
+		then
+			echo V danem adresari se jeste needitovalo
+			exit 1
+
+		fi
+ 
+	echo "$(basename "$DIR");$(dirname "`realpath "$DIR"`");`date +%Y-%m-%d`">>$WEDI_RC
+
+	$current_editor "$DIR"
+	exit
+			
+	fi 
+
+#-l ADRESAR
+	if [ "$1" = "-l" ]
+	then
+		if [ ! -z "$2" ]
+		then
+			p=`realpath "$2"`
+		else
+			p=`pwd`
+		fi
+
+	cat $WEDI_RC | awk -F ";" -vp="$p" '{ if($2==p){ print $2"/"$1 }}' |sort| uniq 
+	exit
+	fi
+
+#-b ADRESAR
+	if [ "$1" = "-b" ]
+	then
+		if [ ! -z "$3" ]
+		then
+			p=`realpath "$3"`
+		else
+			p=`pwd`
+		fi
+
+		if [ -z "$2" ]
+		then
+		echo Nebylo zadano datum
+		exit 1
+		fi
+	time=$2
+		datum=$(echo $time | grep  -o '^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+		if [ -z $datum ]
+			then 
+			echo Spatny format data
+			exit 1
+		fi
+
+
+	cat $WEDI_RC | awk -F ";" -vp="$p" -vt="$time" '{ if(($2==p)&&($3<t)){ print $2"/"$1 }}' |sort| uniq 
+	exit
+	fi
+
+#-a ADRESAR
+	if [ "$1" = "-a" ]
+	then
+		if [ ! -z "$3" ]
+		then
+			p=`realpath "$3"`
+		else
+			p=`pwd`
+		fi
+		
+		if [ -z "$2" ]
+		then
+		echo Nebylo zadano datum
+		exit 1
+		fi
+	time=$2
+
+	datum=$(echo $time | grep  -o '^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+		if [ -z $datum ]
+			then 
+			echo Spatny format data
+			exit 1
+		fi
+
+	cat $WEDI_RC | awk -F ";" -vp="$p" -vt="$time" '{ if(($2==p)&&($3>=t)){ print $2"/"$1 }}' |sort| uniq 
+	exit
+	fi
+	
+	echo Nebyl vybran zadny soubor
+	exit 1
+

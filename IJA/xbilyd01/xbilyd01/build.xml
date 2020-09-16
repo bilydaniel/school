@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="chess" default = "run" basedir = "." >
+	
+	<target name="clean">
+        <delete dir="build"/>
+        <delete dir="dest"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build"/>
+        <javac srcdir="src" destdir="build"/>
+        <copy todir="build/application">
+            <fileset dir="src/application" excludes="**/*.java"/>
+        </copy>
+        <mkdir dir="dest"/>
+        <jar destfile="dest/ija-app.jar" basedir="build">
+            <manifest>
+                <attribute name="Main-Class" value="application.Main"/>
+        </manifest>
+        </jar>
+    </target>
+	
+	<target name="run">
+        <java jar="dest/ija-app.jar" fork="true"/>
+    </target>
+	
+
+</project>

@@ -1,0 +1,35 @@
+.TH D6R 1
+
+.SH NAME
+d6r \- DHCPv6 router s možností vložení mac adresy clienta do paketu
+
+.SH SYNOPSIS
+.B d6r
+.B -s
+.I server
+[\fB-l\fR]
+[\fB-d\fR]
+[\fB-i \fI interface\fR]
+
+.SH DESCRIPTION
+.B d6r
+router s možností vložení mac adresy clienta do paketu
+
+.SH OPTIONS
+.TP
+\fB-s\fR=\fIserver
+ipv6 adresa serveru na který má router přeposílat DHCPv6 požadavky, povinný argument
+.TP
+[\fB-l\fR]
+přepínač pro logování pomocí syslog, volitelný argument, při jeho napsání se loguje
+.TP
+[\fB-d\fR]
+přepínač pro debugovací výpisy, volitelný argument, při jeho napsání se vypisuje
+.TP
+[\fB-i\fR=\fIinterface]
+název rozhraní na kterém má aplikace poslouchat příchozí požadavky, při jeho vynechání poslouchá na všechn rozhraních
+
+
+
+
+

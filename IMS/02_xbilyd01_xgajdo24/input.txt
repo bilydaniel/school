@@ -1,0 +1,10 @@
+num_households 4000000
+coal_max 1781925 
+core_max 1610000
+gas_max 891829
+renewable_max 322000
+coal_max_new 1781925 
+core_max_new 1610000
+gas_max_new 891829
+renewable_max_new 322000
+simulation_len 10
